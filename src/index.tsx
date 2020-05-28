@@ -8,10 +8,10 @@ import 'onsenui/css/onsenui.css';
 import 'onsenui/css/onsen-css-components.css';
 
 ReactDOM.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  // </React.StrictMode>
+  , document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

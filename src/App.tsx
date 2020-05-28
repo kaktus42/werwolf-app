@@ -1,19 +1,58 @@
 import React from 'react';
 import './App.css';
 
+import { availableRoles } from './config'
 import Preparation from './components/Preparation';
 
 import { Splitter, SplitterSide, SplitterContent, Page, List, ListItem, Toolbar, ToolbarButton, Icon } from 'react-onsenui';
 
 interface AppState {
-  openMenu: boolean;
-  currentPage: 'prepare' | 'play' | 'about';
+  openMenu: boolean
+  currentPage: 'prepare' | 'play' | 'about'
+  game: {
+    roles: { [key: string]: number }
+  }
 }
 
 class App extends React.Component<{}, AppState> {
   constructor(props: any) {
     super(props);
-    this.state = { openMenu: false, currentPage: 'prepare' };
+    let state: AppState = {
+      openMenu: false,
+      currentPage: 'prepare',
+      game: {
+        roles: {},
+      },
+    };
+
+    Object.keys(availableRoles).forEach(roleKey => state.game.roles[roleKey] = 0);
+
+    this.state = state;
+  }
+
+  endPreparation() {
+    console.log("endPreparation")
+  }
+
+  addRole(roleKey: string) {
+    this.setState(state => {
+      let count = this.state.game.roles[roleKey]
+      let newRoles = { ...this.state.game.roles }
+      newRoles[roleKey] = count + 1
+      return { game: { roles: newRoles } }
+    });
+  }
+
+  removeRole(roleKey: string) {
+    this.setState(state => {
+      let count = this.state.game.roles[roleKey]
+      if (count <= 0) {
+        return null
+      }
+      let newRoles = { ...this.state.game.roles }
+      newRoles[roleKey] = count - 1
+      return { game: { roles: newRoles } }
+    });
   }
 
   openMenu() {
@@ -46,7 +85,7 @@ class App extends React.Component<{}, AppState> {
             <List
               dataSource={['Das Dorf zusammenstellen', 'Rollen', 'About']}
               renderRow={(row, idx) => (
-                <ListItem tappable={true}>{row}</ListItem>
+                <ListItem key={row} tappable={true}>{row}</ListItem>
               )}
             />
           </Page>
@@ -54,7 +93,12 @@ class App extends React.Component<{}, AppState> {
         <SplitterContent>
           <Page
             renderToolbar={this.renderToolbar.bind(this)}>
-            <Preparation />
+            <Preparation
+              roleCounts={this.state.game.roles}
+              removeRole={this.removeRole.bind(this)}
+              addRole={this.addRole.bind(this)}
+              endPreparation={this.endPreparation.bind(this)}
+            />
           </Page>
         </SplitterContent>
       </Splitter>
