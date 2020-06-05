@@ -4,7 +4,7 @@ import './App.css';
 import { availableRoles } from './config'
 import Preparation from './components/Preparation';
 
-import { Page, Toolbar } from 'react-onsenui';
+import { Toolbar } from 'react-onsenui';
 import Deal from './components/Deal';
 
 interface AppState {
@@ -106,6 +106,7 @@ class App extends React.Component<{}, AppState> {
           addRole={this.addRole.bind(this)}
           endPreparation={this.navToDeal.bind(this)}
           resetRoles={this.resetRoles.bind(this)}
+          renderToolbar={this.renderToolbar.bind(this)}
         />
       case 'deal':
         return <Deal
@@ -113,6 +114,7 @@ class App extends React.Component<{}, AppState> {
           removeRole={this.removeRole.bind(this)}
           addRole={this.addRole.bind(this)}
           navBack={this.navToPreparation.bind(this)}
+          renderToolbar={this.renderToolbar.bind(this)}
         />
       default:
         return <p>Not implemented</p>
@@ -120,12 +122,7 @@ class App extends React.Component<{}, AppState> {
   }
 
   render() {
-    return (
-      <Page
-        renderToolbar={this.renderToolbar.bind(this)}>
-        {this.renderPage.bind(this)()}
-      </Page>
-    );
+    return this.renderPage.bind(this)()
   }
 }
 

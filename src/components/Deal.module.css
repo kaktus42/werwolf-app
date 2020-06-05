@@ -2,3 +2,25 @@
 .space {
     margin: 40px 0;
 }
+
+.fatButton {
+    height: 30vh !important;
+    width: 100%;
+}
+
+.h20pc {
+    height: 15vh !important;
+}
+
+.roletext {
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+.red {
+    background-color: red !important;
+}
+
+.green {
+    background-color: green !important;
+}

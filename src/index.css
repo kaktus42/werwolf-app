@@ -19,3 +19,7 @@ code {
 .hidden {
   display: none;
 }
+
+.scrollable_content {
+  padding-bottom: 90px;
+}

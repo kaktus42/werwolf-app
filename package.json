@@ -1,7 +1,7 @@
 {
   "name": "de.kaktus42.werwolf",
   "displayName": "Werwolf",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A simple helper for Werwolf.",
   "main": "index.js",
   "keywords": [
@@ -10,7 +10,6 @@
   "author": "Alexander Vowinkel",
   "license": "Apache-2.0",
   "dependencies": {
-    "cordova-android": "^8.1.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -19,6 +18,7 @@
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
     "@types/react-onsenui": "^2.9.12",
+    "cordova-android": "^8.1.0",
     "onsenui": "^2.10.10",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
