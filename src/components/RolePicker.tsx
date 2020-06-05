@@ -16,7 +16,7 @@ function RolePicker(props: RolePickerProps) {
     <List
       dataSource={Object.keys(availableRoles)}
       renderRow={(roleKey, idx) => (
-        <ListItem>
+        <ListItem key={roleKey}>
           <div className="center">{availableRoles[roleKey]}</div>
           <div className="right">
             <Button onClick={() => props.removeRole(roleKey)} disabled={props.roleCounts[roleKey] <= 0}>-</Button>

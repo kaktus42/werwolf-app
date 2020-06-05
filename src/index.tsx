@@ -7,12 +7,24 @@ import './index.css';
 import 'onsenui/css/onsenui.css';
 import 'onsenui/css/onsen-css-components.css';
 
-ReactDOM.render(
-  // <React.StrictMode>
+declare let window: any;
+
+const renderReactDom = () => {
+  ReactDOM.render(
+    // <React.StrictMode>
     <App />
-  // </React.StrictMode>
-  , document.getElementById('root')
-);
+    // </React.StrictMode>
+    , document.getElementById('root')
+  );
+};
+
+if (window.cordova) {
+  document.addEventListener('deviceready', () => {
+    renderReactDom();
+  }, false);
+} else {
+  renderReactDom();
+}
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
