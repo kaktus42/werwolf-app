@@ -1,124 +1,78 @@
 import React from 'react';
-
+import { connect, ConnectedProps } from 'react-redux'
 import { Fab, Icon, Button, Row, Col, Page } from 'react-onsenui';
 
-import { availableRoles } from '../config'
+import { currentRoleToggleVisibility, dealNextRole } from '../reducers/game'
+import { navTo } from '../reducers/ui'
+import Toolbar from './Toolbar';
 
 import styles from './Deal.module.css';
 
-interface DealProps {
-  roleCounts: { [key: string]: number }
-  addRole(role: string): void
-  removeRole(role: string): void
-  navBack(): void
-  renderToolbar(): void
+function mapStateToProps(state: RootState) {
+  let { activeRoleIdx, roleIsVisible, roleWasVisible } = state.game.deal
+  let availableRoles = state.game.availableRoles
+  let players = state.game.players
+  let nextButtonDisabled = roleIsVisible || !roleWasVisible || activeRoleIdx >= players.length - 1
+  let playButtonDisabled = roleIsVisible || !roleWasVisible || activeRoleIdx < players.length - 1
+  return {
+    playerNr: activeRoleIdx + 1,
+    roleIsVisible,
+    nextButtonDisabled,
+    playButtonDisabled,
+    roleText: availableRoles[players[activeRoleIdx].role],
+  }
 }
 
+const mapDispatch = { currentRoleToggleVisibility, dealNextRole, navTo }
+const connector = connect(mapStateToProps, mapDispatch)
 
 
-interface DealState {
-  leftRoles: string[]
-  currentRole: string
-  playerNr: number
+type DealProps = ConnectedProps<typeof connector>
 
-  roleWasShown: boolean
-  roleVisible: boolean
-}
-
-class Deal extends React.Component<DealProps, DealState> {
-  constructor(props: any) {
-    super(props);
-
-    let counts = this.props.roleCounts
-    let allRoles: string[] = []
-    for (let role in counts) {
-      for (let i = 0; i < counts[role]; i++) {
-        allRoles.push(availableRoles[role])
-      }
+const Deal = ({
+  navTo,
+  playerNr, roleIsVisible, nextButtonDisabled, playButtonDisabled, roleText,
+  currentRoleToggleVisibility, dealNextRole,
+}: DealProps) => (
+  <Page
+    renderToolbar={() => (<Toolbar />)}
+    renderFixed={() =>
+      <div>
+        <Fab position="bottom left" onClick={() => navTo('prepare')}><Icon icon='fa-undo' /></Fab>
+        <Fab position="bottom right" onClick={() => navTo('play')} disabled={playButtonDisabled}><Icon icon='fa-play' /></Fab>
+      </div>
     }
+  >
+    <Row>
+      <Col width="50%">
+        <Button
+          onClick={() => currentRoleToggleVisibility()}
+          className={styles.fatButton + " " + (roleIsVisible ? styles.red : styles.green)}
+        >
+          Rolle<br />{roleIsVisible ? 'verstecken' : 'anzeigen'}
+        </Button>
+      </Col>
+      <Col width="50%">
+        <Button
+          onClick={() => dealNextRole()}
+          className={styles.fatButton}
+          disabled={nextButtonDisabled}
+        >
+          Nächste<br />Rolle
+        </Button>
+      </Col>
+    </Row>
 
-    let { chosen: currentRole, leftRoles } = chooseRandom(allRoles)
-
-    let state: DealState = {
-      leftRoles,
-      currentRole,
-      playerNr: 1,
-
-      roleWasShown: false,
-      roleVisible: false,
-    };
-
-    this.state = state;
-  }
-
-  toggleRoleView() {
-    this.setState(state => ({ roleVisible: !state.roleVisible, roleWasShown: true }))
-  }
-
-  pickNext() {
-    this.setState(state => {
-      let { chosen: currentRole, leftRoles } = chooseRandom(this.state.leftRoles)
-
-      return {
-        leftRoles,
-        currentRole,
-        playerNr: this.state.playerNr + 1,
-        roleWasShown: false,
-      }
-    });
-  }
-
-  render() {
-    return (
-      <Page
-        renderToolbar={this.props.renderToolbar}
-      >
-        <Row>
-          <Col width="50%">
-            <Button
-              onClick={this.toggleRoleView.bind(this)}
-              className={styles.fatButton + " " + (this.state.roleVisible ? styles.red : styles.green)}
-            >
-              Rolle<br />anzeigen
-            </Button>
-          </Col>
-          <Col width="50%">
-            <Button
-              onClick={this.pickNext.bind(this)}
-              className={styles.fatButton}
-              disabled={!this.state.roleWasShown || this.state.leftRoles.length === 0 || this.state.roleVisible}
-            >
-              Nächste<br />Rolle
-            </Button>
-          </Col>
-        </Row>
-
-        <div className={styles.h20pc}></div>
-        <div id="info_area">
-          <p hidden={this.state.roleVisible} className="center">
-            Rolle für Spieler #{this.state.playerNr} ist versteckt
-            </p>
-          <p hidden={!this.state.roleVisible} className="center">
-            Du bist<br /><br />
-            <span className={styles.roletext}>{this.state.currentRole}</span>
-          </p>
-        </div>
-
-        <Fab position="bottom left" onClick={this.props.navBack}><Icon icon='fa-undo' /></Fab>
-
-      </Page>
-    )
-  }
-}
-
-const chooseRandom = (allRoles: string[]) => {
-  let index = Math.floor(Math.random() * allRoles.length)
-  let chosen = allRoles[index];
-
-  let leftRoles = [...allRoles];
-  leftRoles.splice(index, 1);
-
-  return { chosen, leftRoles };
-}
-
-export default Deal;
+    <div className={styles.h20pc}></div>
+    <div id="info_area">
+      <p hidden={roleIsVisible} className="center">
+        Rolle für Spieler #{playerNr} ist versteckt
+      </p>
+      <p hidden={!roleIsVisible} className="center">
+        Du bist<br /><br />
+        <span className={styles.roletext}>{roleText}</span>
+      </p>
+    </div>
+  </Page >
+)
+export default connector(Deal);

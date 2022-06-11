@@ -23,3 +23,25 @@ code {
 .scrollable_content {
   padding-bottom: 90px;
 }
+
+.flex {
+  display: flex !important;
+}
+
+ons-list-item.isDead {
+  background-color: lightgray;
+}
+
+.isDead > div {
+  text-decoration-line: line-through;
+}
+
+.player > div {
+  justify-content: space-between;
+}
+
+ons-list-item:not(.isDead) button {
+  color: white;
+  border-color: #0076ff;
+  background-color: #0076ff;
+}
