@@ -1,6 +1,6 @@
-import React from 'react';
 import { Provider } from 'react-redux';
 import { configureStore } from "@reduxjs/toolkit";
+// import { createRoot } from 'react-dom/client';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 
@@ -19,14 +19,19 @@ const store = configureStore({
 })
 
 const renderReactDom = () => {
-  ReactDOM.render(
+  const container = document.getElementById('root');
+  const mainJsx = (
     // <React.StrictMode>
     <Provider store={store}>
       <App />
     </Provider>
     // </React.StrictMode>
-    , document.getElementById('root')
   );
+
+  ReactDOM.render(mainJsx, container);
+
+  // const root = createRoot(container!); // createRoot(container!) if you use TypeScript
+  // root.render(mainJsx);
 };
 
 if (window.cordova) {

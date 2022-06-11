@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Toolbar as OnsenToolbar } from 'react-onsenui';
 import { connect, ConnectedProps } from 'react-redux';
 
