@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Werwolf Helfer",
+  "name": "Werwolf Helfer - Der ultimative Helfer für Spielleiter:innen",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,18 +8,59 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "android-chrome-192x192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "android-chrome-512x512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "/app/",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "description": "Eine App, die Spielleiter:innen hilft, kontaktlos Spiele zu leiten.",
+  "id": "de.kaktus42.werwolfhelper",
+  "dir": "ltr",
+  "scope": "https://werwolf-berlin.de/",
+  "lang": "de",
+  "orientation": "portrait",
+  "categories": [
+    "entertainment",
+    "games",
+    "social"
+  ],
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "browser"
+  ]
 }
