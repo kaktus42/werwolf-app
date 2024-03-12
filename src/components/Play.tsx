@@ -55,7 +55,7 @@ class Play extends React.Component<PlayProps, PlayState> {
         <div className="scrollable_content">
           <List
             dataSource={players}
-            renderRow={(player, playerID: number) => (
+            renderRow={(player: Player, playerID: number) => (
               <ListItem key={playerID} className={'player' + (!player.alive ? ' isDead' : '')}>
                 <div>
                   {playerID + 1}: {this.props.availableRoles[player.role]}
