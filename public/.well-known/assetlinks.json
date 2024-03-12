@@ -1,0 +1,14 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "de.kaktus42.werwolfhelper",
+      "sha256_cert_fingerprints": [
+        "DB:7F:F8:A0:E6:A4:A4:C7:1E:1D:BC:9C:77:40:51:F4:ED:D1:51:1A:25:5D:8E:CF:64:98:48:BF:5A:83:D7:5D",
+        "52:53:FD:1C:17:70:D1:E3:62:B4:BD:0E:8C:FA:26:80:50:C6:1C:C9:9C:D7:85:DB:19:1B:C6:12:A5:71:48:8E",
+        "91:9D:6F:AF:AF:1A:74:BA:48:9C:19:CC:B0:02:60:92:4F:69:FC:28:E2:0D:10:85:3A:87:50:1E:F2:47:8E:33"
+      ]
+    }
+  }
+]

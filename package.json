@@ -35,7 +35,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "rsync -va build/ gobi:/srv/http/werwolf-berlin.de/web/app/"
+    "deploy": "rsync -va build/ gobi:/srv/http/werwolf-berlin.de/web/app/ && rsync -va build/.well-known/ gobi:/srv/http/werwolf-berlin.de/web/.well-known/"
   },
   "devDependencies": {
     "@types/jest": "^27.5.2",
